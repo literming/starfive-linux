@@ -105,10 +105,18 @@ struct jh71x0_clk_priv {
 	spinlock_t rmw_lock;
 	struct device *dev;
 	void __iomem *base;
-	struct clk_hw *pll[3];
+	struct clk_hw *pll[12];
 	struct jh71x0_clk reg[];
 };
 
 const struct clk_ops *starfive_jh71x0_clk_ops(u32 max);
+
+#if IS_ENABLED(CONFIG_CLK_STARFIVE_JH7110_SYS)
+
+int jh7110_reset_controller_register(struct jh71x0_clk_priv *priv,
+				     const char *adev_name,
+				     u32 adev_id);
+
+#endif
 
 #endif
