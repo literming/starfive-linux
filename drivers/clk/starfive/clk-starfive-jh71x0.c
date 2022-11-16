@@ -333,7 +333,7 @@ const struct clk_ops *starfive_jh71x0_clk_ops(u32 max)
 }
 EXPORT_SYMBOL_GPL(starfive_jh71x0_clk_ops);
 
-#if IS_ENABLED(CONFIG_CLK_STARFIVE_JH7110_SYS)
+#if IS_ENABLED(CONFIG_RESET_STARFIVE_JH7110)
 
 static void jh7110_reset_unregister_adev(void *_adev)
 {
@@ -383,5 +383,14 @@ int jh7110_reset_controller_register(struct jh71x0_clk_priv *priv,
 					jh7110_reset_unregister_adev, adev);
 }
 EXPORT_SYMBOL_GPL(jh7110_reset_controller_register);
+
+#else /* !CONFIG_RESET_STARFIVE_JH7110 */
+
+int jh7110_reset_controller_register(struct jh71x0_clk_priv *priv,
+				     const char *adev_name,
+				     u32 adev_id)
+{
+	return 0;
+}
 
 #endif
