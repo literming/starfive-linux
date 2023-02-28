@@ -38,6 +38,23 @@
 		};
 	};
 
+	uart3_pins: uart3-pins {
+		uart3-pins-tx {
+			starfive,pins = <PAD_GPIO54>;
+			starfive,pin-ioconfig = <IO(GPIO_IE(1) | GPIO_DS(3))>;
+			starfive,pin-gpio-dout = <GPO_UART3_SOUT>;
+			starfive,pin-gpio-doen = <OEN_LOW>;
+		};
+
+		uart3-pins-rx {
+			starfive,pins = <PAD_GPIO51>;
+			starfive,pinmux = <PAD_GPIO51_FUNC_SEL 0>;
+			starfive,pin-ioconfig = <IO(GPIO_IE(1) | GPIO_PU(1))>;
+			starfive,pin-gpio-doen = <OEN_HIGH>;
+			starfive,pin-gpio-din =  <GPI_UART3_SIN>;
+		};
+	};
+
 	i2c2_pins: i2c2-pins {
 		i2c2-pins-scl {
 			starfive,pins = <PAD_GPIO3>;
@@ -167,6 +184,12 @@
 &uart0 {
 	pinctrl-names = "default";
 	pinctrl-0 = <&uart0_pins>;
+	status = "okay";
+};
+
+&uart3 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&uart3_pins>;
 	status = "okay";
 };
 
