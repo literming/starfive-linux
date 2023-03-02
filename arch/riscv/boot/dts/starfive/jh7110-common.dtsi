@@ -18,7 +18,7 @@
 		mmc0 = &sdio0;
 		mmc1 = &sdio1;
 		serial0 = &uart0;
-		serial3 = &uart3;
+		serial3 = &uart1;
 		i2c0 = &i2c0;
 		i2c1 = &i2c1;
 		i2c2 = &i2c2;
