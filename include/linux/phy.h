@@ -1551,6 +1551,7 @@ irqreturn_t genphy_handle_interrupt_no_ack(struct phy_device *phydev);
 
 static inline int genphy_config_aneg(struct phy_device *phydev)
 {
+	printk("starfive-eth-plat genphy_config_aneg\n");
 	return __genphy_config_aneg(phydev, false);
 }
 

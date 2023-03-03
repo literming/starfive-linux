@@ -3642,7 +3642,7 @@ int stmmac_open(struct net_device *dev)
 	int bfsize = 0;
 	u32 chan;
 	int ret;
-
+	printk("starfive-eth-plat stmmac_open start");
 	ret = pm_runtime_get_sync(priv->device);
 	if (ret < 0) {
 		pm_runtime_put_noidle(priv->device);
@@ -3724,7 +3724,7 @@ int stmmac_open(struct net_device *dev)
 
 	stmmac_enable_all_queues(priv);
 	netif_tx_start_all_queues(priv->dev);
-
+	printk("starfive-eth-plat stmmac_open end");
 	return 0;
 
 irq_error:

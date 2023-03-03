@@ -2576,6 +2576,7 @@ int genphy_read_abilities(struct phy_device *phydev)
 			       phydev->supported);
 
 	val = phy_read(phydev, MII_BMSR);
+	printk("MII_BMSR : 0x%x\n", val);
 	if (val < 0)
 		return val;
 
@@ -2603,7 +2604,7 @@ int genphy_read_abilities(struct phy_device *phydev)
 		linkmode_mod_bit(ETHTOOL_LINK_MODE_1000baseX_Full_BIT,
 				 phydev->supported, val & ESTATUS_1000_XFULL);
 	}
-
+	printk("MII_ESTATUS : 0x%x\n", val);
 	return 0;
 }
 EXPORT_SYMBOL(genphy_read_abilities);
@@ -3037,7 +3038,7 @@ static int phy_probe(struct device *dev)
 	int err = 0;
 
 	phydev->drv = phydrv;
-
+	printk("starfive-eth-plat phy probe\n");
 	/* Disable the interrupt if the PHY doesn't support it
 	 * but the interrupt is still a valid one
 	 */
@@ -3062,7 +3063,7 @@ static int phy_probe(struct device *dev)
 	 * a controller will attach, and may modify one
 	 * or both of these values
 	 */
-	if (phydrv->features)
+	if (phydrv->features) 
 		linkmode_copy(phydev->supported, phydrv->features);
 	else if (phydrv->get_features)
 		err = phydrv->get_features(phydev);
@@ -3193,7 +3194,7 @@ int phy_driver_register(struct phy_driver *new_driver, struct module *owner)
 
 		return retval;
 	}
-
+	//printk("===Registered new driver\n");
 	pr_debug("%s: Registered new driver\n", new_driver->name);
 
 	return 0;

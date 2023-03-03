@@ -804,7 +804,6 @@ int __mdiobus_modify_changed(struct mii_bus *bus, int addr, u32 regnum,
 			     u16 mask, u16 set)
 {
 	int new, ret;
-
 	ret = __mdiobus_read(bus, addr, regnum);
 	if (ret < 0)
 		return ret;

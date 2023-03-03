@@ -428,7 +428,7 @@ static int yt8512_config_init(struct phy_device *phydev)
 {
 	int ret;
 	int val;
-
+	printk("starfive-eth-plat yt8512_config_init");
 	ret = ytphy_config_init(phydev);
 	if (ret < 0)
 		return ret;
@@ -488,7 +488,7 @@ static int yt8512_read_status(struct phy_device *phydev)
 int yt8521_soft_reset(struct phy_device *phydev)
 {
 	int ret, val;
-
+	printk("starfive-eth-plat yt8521_soft_reset");
 	if (YT8521_PHY_MODE_CURR == YT8521_PHY_MODE_UTP) {
 		ytphy_write_ext(phydev, 0xa000, 0);
 		ytphy_soft_reset(phydev);
@@ -900,7 +900,7 @@ static int yt8521_config_init(struct phy_device *phydev)
 {
 	int ret;
 	int val, hw_strap_mode;
-
+	printk("starfive-eth-plat yt8521_config_init\n");
 #if (YTPHY_WOL_FEATURE_ENABLE)
 	struct ethtool_wolinfo wol;
 
@@ -999,7 +999,7 @@ static int yt8521_adjust_status(struct phy_device *phydev, int val, int is_utp)
 int yt8521_aneg_done(struct phy_device *phydev)
 {
 	int link_fiber = 0, link_utp = 0;
-
+	printk("starfive-eth-plat yt8521_aneg_done");
 	/* reading Fiber */
 	ytphy_write_ext(phydev, 0xa000, 2);
 	link_fiber = !!(phy_read(phydev, REG_PHY_SPEC_STATUS) &
@@ -1189,7 +1189,7 @@ static int ytphy_probe(struct phy_device *phydev)
 	const struct device_node *of_node;
 	u32 val;
 	int ret;
-
+	printk("starfive-eth-plat ytphy_probe\n");
 	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
 	if (!priv)
 		return -ENOMEM;
@@ -1218,7 +1218,7 @@ static int yt8531_config_init(struct phy_device *phydev)
 	int ret;
 
 	ret = 0;
-
+	printk("starfive-eth-plat yt8531_config_init=");
 	/*set delay config*/
 	ret = ytphy_of_config(phydev);
 	if (ret < 0)
@@ -1241,7 +1241,7 @@ int yt8618_soft_reset(struct phy_device *phydev)
 int yt8614_soft_reset(struct phy_device *phydev)
 {
 	int ret;
-
+	
 	/* qsgmii */
 	ytphy_write_ext(phydev, 0xa000, 2);
 	ret = ytphy_soft_reset(phydev);
