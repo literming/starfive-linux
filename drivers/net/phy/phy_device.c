@@ -3038,7 +3038,7 @@ static int phy_probe(struct device *dev)
 	int err = 0;
 
 	phydev->drv = phydrv;
-	printk("starfive-eth-plat phy probe\n");
+	printk("starfive-eth-plat phy_probe\n");
 	/* Disable the interrupt if the PHY doesn't support it
 	 * but the interrupt is still a valid one
 	 */
@@ -3054,9 +3054,12 @@ static int phy_probe(struct device *dev)
 	phy_device_reset(phydev, 0);
 
 	if (phydev->drv->probe) {
+		printk("starfive-eth-plat prepare to device phy probe\n");
 		err = phydev->drv->probe(phydev);
 		if (err)
 			goto out;
+	} else {
+		printk("starfive-eth-plat no phy probe\n");
 	}
 
 	/* Start out supporting everything. Eventually,
@@ -3169,6 +3172,7 @@ int phy_driver_register(struct phy_driver *new_driver, struct module *owner)
 {
 	int retval;
 
+	printk("starfive-eth-plat phy_driver_register");
 	/* Either the features are hard coded, or dynamically
 	 * determined. It cannot be both.
 	 */
