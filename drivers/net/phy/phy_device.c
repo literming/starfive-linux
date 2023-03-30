@@ -3172,7 +3172,7 @@ int phy_driver_register(struct phy_driver *new_driver, struct module *owner)
 {
 	int retval;
 
-	printk("starfive-eth-plat phy_driver_register");
+	//printk("starfive-eth-plat phy_driver_register");
 	/* Either the features are hard coded, or dynamically
 	 * determined. It cannot be both.
 	 */
@@ -3198,7 +3198,6 @@ int phy_driver_register(struct phy_driver *new_driver, struct module *owner)
 
 		return retval;
 	}
-	//printk("===Registered new driver\n");
 	pr_debug("%s: Registered new driver\n", new_driver->name);
 
 	return 0;
@@ -3265,7 +3264,7 @@ static int __init phy_init(void)
 
 	ethtool_set_ethtool_phy_ops(&phy_ethtool_phy_ops);
 	features_init();
-
+	printk("starfive-eth-plat phy_init");
 	rc = phy_driver_register(&genphy_c45_driver, THIS_MODULE);
 	if (rc)
 		goto err_c45;
@@ -3276,6 +3275,7 @@ static int __init phy_init(void)
 err_c45:
 		mdio_bus_exit();
 	}
+	printk("starfive-eth-plat phy_init success\n");
 
 	return rc;
 }
