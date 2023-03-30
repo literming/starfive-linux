@@ -271,7 +271,9 @@ static int stmmac_mdio_read(struct mii_bus *bus, int phyaddr, int phyreg)
 
 	/* Read the data from the MII data register */
 	data = (int)readl(priv->ioaddr + mii_data) & MII_DATA_MASK;
-
+	if (!strcmp(bus->name, "stmmac") && data != 0xFFFF ) {
+		printk("starfive-eth-plat read reg : 0x%x, data : 0x%x\n", phyreg, data);
+	}
 err_disable_clks:
 	pm_runtime_put(priv->device);
 
@@ -335,7 +337,9 @@ static int stmmac_mdio_write(struct mii_bus *bus, int phyaddr, int phyreg,
 	/* Set the MII address register to write */
 	writel(data, priv->ioaddr + mii_data);
 	writel(value, priv->ioaddr + mii_address);
-
+	if (!strcmp(bus->name, "stmmac")) {
+		printk("starfive-eth-plat write reg : 0x%x, data : 0x%x\n", phyreg, phydata);
+	}
 	/* Wait until any existing MII operation is complete */
 	ret = readl_poll_timeout(priv->ioaddr + mii_address, v, !(v & MII_BUSY),
 				 100, 10000);
